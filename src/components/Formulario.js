@@ -4,7 +4,7 @@ import chevi from "../assets/images/chevignon-logo___8aae6d13e43e148fb1c8ac7f349
 import esprit from "../assets/images/esprit-logo___99300a2b60c96335179ecc23322781ee.svg"
 import americanino from "../assets/images/americanino.svg"
 import nafnaf from "../assets/images/logo-black-nafnaf.png"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 const Formulario = () => {
 
@@ -19,8 +19,14 @@ const Formulario = () => {
   const [ciudad, setCiudad] = useState('');
   const [marca, setMarca] = useState('');
   const [error,setError]=useState(false)
+  const [departments, setDepartments] = useState([]);
 
-
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/departamentos')
+      .then(res => setDepartments(res.data))
+      .catch(err => console.log(err));
+  }, []);
+  
   const postData = async (e) => {
     if (nombre.length==0|| apellidos.length==0 || tipoIdentificacion.length==0  || numeroIdentificacion.length==0  || fechaNacimiento.length==0  || direccion.length==0 || pais.length==0  || departamento.length==0  || ciudad.length==0  || marca.length==0 ) {
       setError(true)
@@ -104,46 +110,18 @@ const Formulario = () => {
           <select id="inputState"  className={error&&pais.length<=0?
                "form-select is-invalid":"form-select"} onChange={(e) => setPais(e.target.value)}>
             <option value="">~</option>
-            <option value="Colombia">Colombia</option>
+            <option value="Colombia">COLOMBIA</option>
           </select>
         </section>
         <section className="col-md-4">
           <label for="inputState" className="form-label">Departamento</label>
           <select id="inputState"  className={error&&departamento.length<=0?
                "form-select is-invalid":"form-select"} onChange={(e) => setDepartamento(e.target.value)}>
-            <option value="">~</option>
-            <option value="Amazonas">Amazonas</option>
-            <option value="Antioquia">Antioquia</option>
-            <option value="Arauca">Arauca</option>
-            <option value="Atlántico">Atlántico</option>
-            <option value="Bolívar">Bolívar</option>
-            <option value="Boyacá">Boyacá</option>
-            <option value="Caldas">Caldas</option>
-            <option value="Caquetá">Caquetá</option>
-            <option value="Casanare">Casanare</option>
-            <option value="Cauca">Cauca</option>
-            <option value="Cesar">Cesar</option>
-            <option value="Chocó">Chocó</option>
-            <option value="Córdoba">Córdoba</option>
-            <option value="Cundinamarca">Cundinamarca</option>
-            <option value="Guainía">Guainía</option>
-            <option value="Guaviare">Guaviare</option>
-            <option value="Huila">Huila</option>
-            <option value="La Guajira">La Guajira</option>
-            <option value="Magdalena">Magdalena</option>
-            <option value="Meta">Meta</option>
-            <option value="Nariño">Nariño</option>
-            <option value="Norte de Santander">Norte de Santander</option>
-            <option value="Putumayo">Putumayo</option>
-            <option value="Quindío">Quindío</option>
-            <option value="Risaralda">Risaralda</option>
-            <option value="San Andrés y Providencia">San Andrés y Providencia</option>
-            <option value="Santander">Santander</option>
-            <option value="Sucre">Sucre</option>
-            <option value="Tolima">Tolima</option>
-            <option value="Valle del Cauca">Valle del Cauca</option>
-            <option value="Vaupés">Vaupés</option>
-            <option value="Vichada">Vichada</option>
+            {departments.map(department => (
+          <option key={department.id} value={department.departamento}>
+            {department.departamento}
+          </option>
+        ))}
           </select>
         </section>
         <section className="col-md-4">

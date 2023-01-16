@@ -1,9 +1,14 @@
+import Footer from "../components/Footer";
 import Formulario from "../components/Formulario";
 
 const NuevoCliente = () => {
     return (
        
-            <Formulario/>
+            <>
+            <Formulario />
+            <Footer/>
+            </>
+
        
     )
 
