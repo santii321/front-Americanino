@@ -208,7 +208,7 @@ const Formulario = () => {
           </section>
         </section>
         <section className="col-12">
-          <button onClick={postData} className="btn btn-primary">Registrarme!</button>
+          <button onClick={postData} className="btn btn-dark">Registrarme!</button>
         </section>
       </section>
     </section>
