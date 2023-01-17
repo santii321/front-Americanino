@@ -5,6 +5,7 @@ const NuevoCliente = () => {
     return (
        
             <>
+            
             <Formulario />
             <Footer/>
             </>

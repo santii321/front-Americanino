@@ -86,3 +86,10 @@ header {
 .imgColor{
     background-color: black;
 }
+.modal{
+    display: block;
+}
+.registroExitoso{
+    width: 100%;
+    mix-blend-mode: luminosity;
+}

@@ -6,6 +6,7 @@ import americanino from "../assets/images/americanino.svg"
 import nafnaf from "../assets/images/logo-black-nafnaf.png"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import Modal from "./Modal"
 const Formulario = () => {
 
   const [nombre, setNombre] = useState('');
@@ -20,6 +21,7 @@ const Formulario = () => {
   const [marca, setMarca] = useState('');
   const [error, setError] = useState(false)
   const [departments, setDepartments] = useState([]);
+  const [exitoso,setExitoso] = useState(false)
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/departamentos')
@@ -45,7 +47,6 @@ const Formulario = () => {
         marca: marca
       })
         .then(function (response) {
-          alert("se creo correctamente el cliente")
           setNombre('')
           setApellidos('')
           setTipoIdentificacion('')
@@ -57,11 +58,17 @@ const Formulario = () => {
           setCiudad('')
           setMarca('')
           setError(false)
+          setExitoso(true)
+          setTimeout(function () {
+            setExitoso(false)
+        }, 3500)
         })
     }
   }
 
   return (
+    <>
+    {exitoso == true && <Modal/>}
     <section className="formulario">
       <section className="alert alert-secondary text-center" role="alert">
         Pensando en mejorar la Experiencia de nuestros clientes, hemos creado este programa de fidelidad con la marca que mas te gusta. <b>REGISTRATE YA!</b>
@@ -212,6 +219,7 @@ const Formulario = () => {
         </section>
       </section>
     </section>
+    </>
   )
 
 }
